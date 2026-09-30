@@ -23,19 +23,25 @@ It must always make these questions answerable:
 - What remains uncertain?
 - What is the **next exact action**?
 
-## Checkpoint rule
+## Sparse checkpoint rule
 
-Do not use GitHub as a token-by-token scratchpad. Research first.
+**Do not use GitHub as a live research log.** Search, read, compare, and reason for a substantial stretch before writing.
 
-Checkpoint when losing the current state would materially waste work, especially:
+Default behavior is to keep working in the current run and batch multiple related discoveries into one checkpoint.
 
-- after resolving a meaningful sub-question;
-- after finding a high-value source, contradiction, or synthesis that would be hard to rediscover;
-- before starting another large research branch;
-- before switching tools, chats, or research directions;
-- when the current run may end before the whole task is finished.
+A checkpoint is justified only when at least one of these is true:
 
-A checkpoint means updating `research/STATE.md` and committing it to Git.
+- a substantial sub-question has been resolved;
+- a high-value synthesis, contradiction, source trail, or decision would be costly to reconstruct;
+- the research is about to branch into a substantially different direction;
+- the current run is approaching a natural handoff / stopping boundary;
+- there is a realistic risk that losing the current state would waste a meaningful amount of work.
+
+A single search, paper discovery, duplicate result, tentative idea, or minor clarification is **not** enough to justify a write.
+
+When a checkpoint is justified, update `research/STATE.md` once with the accumulated epistemic delta and commit it as one coherent batch.
+
+The goal is **minimum sufficient durability**: few writes, high information density, low recovery cost.
 
 ## Recovery protocol
 
@@ -47,16 +53,16 @@ When starting or resuming deep research:
 4. Resume from **NEXT EXACT ACTION**.
 5. Do not restart the survey from zero merely because the prior chat is gone.
 
-If the previous run died mid-branch, mark that branch as interrupted/uncertain in `STATE.md`; preserve what is known and continue from the closest durable checkpoint.
+If the previous run died mid-branch, preserve what is known, mark uncertainty honestly, and continue from the closest durable checkpoint.
 
 ## Writing discipline
 
-The state file should be compact enough that a fresh model can load it quickly, but detailed enough that 20+ minutes of work are not lost.
+The state file should be compact enough that a fresh model can load it quickly, but detailed enough that a long interrupted run does not have to be repeated.
 
-Prefer precise statements over narrative. Preserve URLs, paper titles, identifiers, query terms, numerical results, and unresolved contradictions when they are needed to reproduce or continue the work.
+Prefer precise statements over narrative. Preserve URLs, paper titles, identifiers, query terms, numerical results, and unresolved contradictions only when they materially help reproduction or continuation.
 
-Git history provides older checkpoints, so `STATE.md` should describe the best current state rather than becoming an endless diary.
+Do not append a diary. Rewrite `STATE.md` into the best compact representation of the current state; Git history already preserves older checkpoints.
 
 ## Success criterion
 
-Research OS is working if an interrupted deep-research session can be resumed in a new conversation with only this repository and negligible duplicated research.
+Research OS is working if an interrupted deep-research session can be resumed in a new conversation with negligible duplicated research **without creating noisy, high-frequency Git writes during normal research.**
